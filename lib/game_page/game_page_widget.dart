@@ -728,11 +728,7 @@ class _GamePageWidgetState extends State<GamePageWidget> {
                         InkWell(
                           onTap: () async {
                             var _shouldSetState = false;
-                            setState(() =>
-                                FFAppState().dicevalue = valueOrDefault<int>(
-                                  random_data.randomInteger(1, 1),
-                                  5,
-                                ));
+                            setState(() => FFAppState().dicevalue = 4);
                             await Future.delayed(
                                 const Duration(milliseconds: 1000));
                             newChanceValue = await actions.nextPlayerChance(
@@ -766,8 +762,6 @@ class _GamePageWidgetState extends State<GamePageWidget> {
                                 backgroundColor: Color(0x00000000),
                               ),
                             );
-                            await Future.delayed(
-                                const Duration(milliseconds: 3000));
                             if (functions.lessThenEqual(
                                 functions.add(
                                     playerValue!, FFAppState().dicevalue),
@@ -838,8 +832,6 @@ class _GamePageWidgetState extends State<GamePageWidget> {
                                       backgroundColor: Color(0x00000000),
                                     ),
                                   );
-                                  await Future.delayed(
-                                      const Duration(milliseconds: 3000));
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
@@ -854,8 +846,6 @@ class _GamePageWidgetState extends State<GamePageWidget> {
                                       backgroundColor: Color(0x00000000),
                                     ),
                                   );
-                                  await Future.delayed(
-                                      const Duration(milliseconds: 3000));
                                 }
 
                                 await showModalBottomSheet(
@@ -867,8 +857,10 @@ class _GamePageWidgetState extends State<GamePageWidget> {
                                       padding:
                                           MediaQuery.of(context).viewInsets,
                                       child: QuestionSheetWidget(
-                                        sequence:
-                                            random_data.randomInteger(1, 3),
+                                        sequence: valueOrDefault<int>(
+                                          random_data.randomInteger(1, 3),
+                                          1,
+                                        ),
                                       ),
                                     );
                                   },
