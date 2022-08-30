@@ -20,6 +20,8 @@ class _GamePageWidgetState extends State<GamePageWidget> {
   AudioPlayer? soundPlayer1;
   int? nextPostion;
   AudioPlayer? soundPlayer2;
+  List<int>? updatePlayerListB;
+  List<int>? updatedPlayerListA;
   int? newChanceValue;
   int? playerValue;
   int? newPlayerValue;
@@ -811,12 +813,16 @@ class _GamePageWidgetState extends State<GamePageWidget> {
                                     backgroundColor: Color(0x00000000),
                                   ),
                                 );
-                                await actions.updatePlayerValue(
+                                updatedPlayerListA =
+                                    await actions.updatePlayerValue(
                                   FFAppState().players.toList(),
                                   FFAppState().chance,
                                   FFAppState().numberofPlayers,
                                   newPlayerValue!,
                                 );
+                                _shouldSetState = true;
+                                setState(() => FFAppState().players =
+                                    updatedPlayerListA!.toList());
                               } else {
                                 if (sAndLPlayerValue! < newPlayerValue!) {
                                   ScaffoldMessenger.of(context).showSnackBar(
@@ -897,12 +903,16 @@ class _GamePageWidgetState extends State<GamePageWidget> {
                                   );
                                 }
 
-                                await actions.updatePlayerValue(
+                                updatePlayerListB =
+                                    await actions.updatePlayerValue(
                                   FFAppState().players.toList(),
                                   FFAppState().chance,
                                   FFAppState().numberofPlayers,
                                   sAndLPlayerValue!,
                                 );
+                                _shouldSetState = true;
+                                setState(() => FFAppState().players =
+                                    updatePlayerListB!.toList());
                               }
                             }
                             setState(() =>

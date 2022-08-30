@@ -7,12 +7,13 @@ import '../../flutter_flow/custom_functions.dart'; // Imports custom functions
 import 'package:flutter/material.dart';
 
 // Begin custom action code
-Future updatePlayerValue(
+List<int> updatePlayerValue(
   List<int> player,
   int chance,
   int numberOfPlayers,
   int newValue,
-) async {
+) {
   int index = chance % numberOfPlayers;
   player[index] = newValue;
+  return player;
 }
