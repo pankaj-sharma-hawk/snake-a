@@ -12,7 +12,7 @@ Future<int> nextPlayerChance(
   List<int> players,
   int totalPlayers,
 ) async {
-  int i = currentPlayer;
+  int i = (currentPlayer % totalPlayers);
   do {
     if (players[i] < 100) {
       return i;
