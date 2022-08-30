@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "194340892830",
+    "project_id": "pankaj-sa",
+    "storage_bucket": "pankaj-sa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:194340892830:android:a37853394a044516df0b8f",
+        "android_client_info": {
+          "package_name": "com.mycompany.snakesladders"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "194340892830-7dre8ong6alt0mocgrjc3mr8no4q8svs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtPkEsc8IhuLDwlIS48ITncfdgcpgzXos"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "194340892830-7dre8ong6alt0mocgrjc3mr8no4q8svs.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "194340892830-aslim0qoeo31kmeb975fueloplhtb4m6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mycompany.snakesladders"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
