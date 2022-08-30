@@ -200,7 +200,7 @@ class _QuestionSheetWidgetState extends State<QuestionSheetWidget> {
                                 onPressed: () async {
                                   // Check Answer
                                   resultB = await actions.isAnswerCorrect(
-                                    1,
+                                    2,
                                     containerRewardQuestionsRecord!
                                         .answerIndex!,
                                   );
@@ -279,7 +279,7 @@ class _QuestionSheetWidgetState extends State<QuestionSheetWidget> {
                                 onPressed: () async {
                                   // Check Answer
                                   resultC = await actions.isAnswerCorrect(
-                                    1,
+                                    3,
                                     containerRewardQuestionsRecord!
                                         .answerIndex!,
                                   );
@@ -358,7 +358,7 @@ class _QuestionSheetWidgetState extends State<QuestionSheetWidget> {
                                 onPressed: () async {
                                   // Check Answer
                                   resultD = await actions.isAnswerCorrect(
-                                    1,
+                                    4,
                                     containerRewardQuestionsRecord!
                                         .answerIndex!,
                                   );

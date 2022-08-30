@@ -12,7 +12,18 @@ int snakeAndLadderValue(int newPlayerValue) {
 }
 
 var ladder = {4: 56, 12: 50, 14: 55, 22: 58, 41: 79, 54: 88};
-var snake = {28: 10, 37: 3, 47: 16, 75: 32, 94: 71, 96: 42};
+var snake = {
+  28: 10,
+  37: 3,
+  47: 16,
+  75: 32,
+  94: 71,
+  96: 42,
+  57: 25,
+  58: 28,
+  59: 24,
+  60: 23
+};
 
 int nextValue(int newPlayerValue) {
   if (ladder[newPlayerValue] == null) {

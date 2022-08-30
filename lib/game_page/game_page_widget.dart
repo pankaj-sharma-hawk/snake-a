@@ -20,12 +20,15 @@ class _GamePageWidgetState extends State<GamePageWidget> {
   AudioPlayer? soundPlayer1;
   int? nextPostion;
   AudioPlayer? soundPlayer2;
-  List<int>? updatePlayerListB;
+  List<int>? updatePlayerB1;
   List<int>? updatedPlayerListA;
   int? newChanceValue;
   int? playerValue;
   int? newPlayerValue;
   int? sAndLPlayerValue;
+  List<int>? updatePlayerB2;
+  List<int>? updatePlayerB3;
+  List<int>? updatePlayerB4;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -728,7 +731,7 @@ class _GamePageWidgetState extends State<GamePageWidget> {
                         InkWell(
                           onTap: () async {
                             var _shouldSetState = false;
-                            setState(() => FFAppState().dicevalue = 4);
+                            setState(() => FFAppState().dicevalue = 2);
                             await Future.delayed(
                                 const Duration(milliseconds: 1000));
                             newChanceValue = await actions.nextPlayerChance(
@@ -748,20 +751,6 @@ class _GamePageWidgetState extends State<GamePageWidget> {
                               FFAppState().players.toList(),
                             );
                             _shouldSetState = true;
-                            // Delete-1
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  playerValue!.toString(),
-                                  style: TextStyle(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                  ),
-                                ),
-                                duration: Duration(milliseconds: 4000),
-                                backgroundColor: Color(0x00000000),
-                              ),
-                            );
                             if (functions.lessThenEqual(
                                 functions.add(
                                     playerValue!, FFAppState().dicevalue),
@@ -772,21 +761,6 @@ class _GamePageWidgetState extends State<GamePageWidget> {
                                 FFAppState().dicevalue,
                               );
                               _shouldSetState = true;
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    newPlayerValue!.toString(),
-                                    style: TextStyle(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                    ),
-                                  ),
-                                  duration: Duration(milliseconds: 4000),
-                                  backgroundColor: Color(0x00000000),
-                                ),
-                              );
-                              await Future.delayed(
-                                  const Duration(milliseconds: 3000));
                               // Get value if any Snake & Ladder
                               sAndLPlayerValue =
                                   await actions.snakeAndLadderValue(
@@ -794,19 +768,6 @@ class _GamePageWidgetState extends State<GamePageWidget> {
                               );
                               _shouldSetState = true;
                               if (sAndLPlayerValue == -1) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      'No Snake & Ladder Founde',
-                                      style: TextStyle(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                      ),
-                                    ),
-                                    duration: Duration(milliseconds: 4000),
-                                    backgroundColor: Color(0x00000000),
-                                  ),
-                                );
                                 updatedPlayerListA =
                                     await actions.updatePlayerValue(
                                   FFAppState().players.toList(),
@@ -819,92 +780,90 @@ class _GamePageWidgetState extends State<GamePageWidget> {
                                     updatedPlayerListA!.toList());
                               } else {
                                 if (sAndLPlayerValue! < newPlayerValue!) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Snake Value',
-                                        style: TextStyle(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
+                                  // Snake Flow
+                                  await showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    backgroundColor: Colors.transparent,
+                                    context: context,
+                                    builder: (context) {
+                                      return Padding(
+                                        padding:
+                                            MediaQuery.of(context).viewInsets,
+                                        child: QuestionSheetWidget(
+                                          sequence: valueOrDefault<int>(
+                                            random_data.randomInteger(1, 3),
+                                            1,
+                                          ),
                                         ),
-                                      ),
-                                      duration: Duration(milliseconds: 4000),
-                                      backgroundColor: Color(0x00000000),
-                                    ),
+                                      );
+                                    },
                                   );
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Ladder Value',
-                                        style: TextStyle(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                        ),
-                                      ),
-                                      duration: Duration(milliseconds: 4000),
-                                      backgroundColor: Color(0x00000000),
-                                    ),
-                                  );
-                                }
-
-                                await showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  backgroundColor: Colors.transparent,
-                                  context: context,
-                                  builder: (context) {
-                                    return Padding(
-                                      padding:
-                                          MediaQuery.of(context).viewInsets,
-                                      child: QuestionSheetWidget(
-                                        sequence: valueOrDefault<int>(
-                                          random_data.randomInteger(1, 3),
-                                          1,
-                                        ),
-                                      ),
+                                  if (FFAppState().rewardResult) {
+                                    updatePlayerB1 =
+                                        await actions.updatePlayerValue(
+                                      FFAppState().players.toList(),
+                                      FFAppState().chance,
+                                      FFAppState().numberofPlayers,
+                                      newPlayerValue!,
                                     );
-                                  },
-                                );
-                                if (FFAppState().rewardResult) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Correct Answer',
-                                        style: TextStyle(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                        ),
-                                      ),
-                                      duration: Duration(milliseconds: 4000),
-                                      backgroundColor: Color(0x00000000),
-                                    ),
-                                  );
+                                    _shouldSetState = true;
+                                    setState(() => FFAppState().players =
+                                        updatePlayerB1!.toList());
+                                  } else {
+                                    updatePlayerB2 =
+                                        await actions.updatePlayerValue(
+                                      FFAppState().players.toList(),
+                                      FFAppState().chance,
+                                      FFAppState().numberofPlayers,
+                                      sAndLPlayerValue!,
+                                    );
+                                    _shouldSetState = true;
+                                    setState(() => FFAppState().players =
+                                        updatePlayerB2!.toList());
+                                  }
                                 } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Wrong Answer.',
-                                        style: TextStyle(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
+                                  // Ladder Flow
+                                  await showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    backgroundColor: Colors.transparent,
+                                    context: context,
+                                    builder: (context) {
+                                      return Padding(
+                                        padding:
+                                            MediaQuery.of(context).viewInsets,
+                                        child: QuestionSheetWidget(
+                                          sequence: valueOrDefault<int>(
+                                            random_data.randomInteger(1, 3),
+                                            1,
+                                          ),
                                         ),
-                                      ),
-                                      duration: Duration(milliseconds: 4000),
-                                      backgroundColor: Color(0x00000000),
-                                    ),
+                                      );
+                                    },
                                   );
+                                  if (FFAppState().rewardResult) {
+                                    updatePlayerB3 =
+                                        await actions.updatePlayerValue(
+                                      FFAppState().players.toList(),
+                                      FFAppState().chance,
+                                      FFAppState().numberofPlayers,
+                                      sAndLPlayerValue!,
+                                    );
+                                    _shouldSetState = true;
+                                    setState(() => FFAppState().players =
+                                        updatePlayerB3!.toList());
+                                  } else {
+                                    updatePlayerB4 =
+                                        await actions.updatePlayerValue(
+                                      FFAppState().players.toList(),
+                                      FFAppState().chance,
+                                      FFAppState().numberofPlayers,
+                                      newPlayerValue!,
+                                    );
+                                    _shouldSetState = true;
+                                    setState(() => FFAppState().players =
+                                        updatePlayerB4!.toList());
+                                  }
                                 }
-
-                                updatePlayerListB =
-                                    await actions.updatePlayerValue(
-                                  FFAppState().players.toList(),
-                                  FFAppState().chance,
-                                  FFAppState().numberofPlayers,
-                                  sAndLPlayerValue!,
-                                );
-                                _shouldSetState = true;
-                                setState(() => FFAppState().players =
-                                    updatePlayerListB!.toList());
                               }
                             }
                             setState(() =>
